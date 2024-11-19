@@ -3,6 +3,9 @@ using UnityEditor.Rendering;
 
 namespace CoinMaster
 {
+    /// <summary>
+    /// ユーザーデータクラス
+    /// </summary>
     [Serializable]
     public class UserData
     {
@@ -14,6 +17,9 @@ namespace CoinMaster
         public DateTime createdAt;
     };
 
+    /// <summary>
+    /// ログイン時の情報
+    /// </summary>
     [Serializable]
     public class LoginData
     {

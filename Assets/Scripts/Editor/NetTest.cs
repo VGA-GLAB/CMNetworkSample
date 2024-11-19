@@ -19,7 +19,7 @@ public class EventSystemViewerEditor : Editor
         NetTest view = target as NetTest;
         if (GUILayout.Button(@"ログイン"))
         {
-            login();
+            view.LoginFromEditor();
         }
         if (GUILayout.Button(@"セーブ"))
         {
@@ -27,14 +27,10 @@ public class EventSystemViewerEditor : Editor
         }
     }
 
-    async void login()
-    {
-        var result = await CoinMasterNetwork.Login();
-        Debug.Log(JsonUtility.ToJson(result));
-    }
-
+    //保存テスト
     async void save()
     {
+        //値を変更して保存
         NetTest view = target as NetTest;
         CoinMasterNetwork.UpdateName(view.username);
         CoinMasterNetwork.UpdateCoin(view.coin);
