@@ -27,6 +27,13 @@ public class NetTest : MonoBehaviour
         Debug.Log(JsonUtility.ToJson(result));
     }
 
+    public async void save()
+    {
+        //保存テスト
+        var result = await CoinMasterNetwork.Save();
+        Debug.Log(JsonUtility.ToJson(result));
+    }
+
     public async void list()
     {
         //攻撃対象のリストを取得する
@@ -36,8 +43,8 @@ public class NetTest : MonoBehaviour
 
     public async void attack()
     {
-        //
-        var result = await CoinMasterNetwork.Attack("666", 10);
+        //攻撃
+        var result = await CoinMasterNetwork.Attack("acb83937-e330-4787-b064-2865ab98bb74", 100);
         Debug.Log(JsonUtility.ToJson(result));
     }
 

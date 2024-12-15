@@ -36,6 +36,7 @@ namespace CoinMaster
     {
         public int status;
         public long stolenCoin;
+        public bool isAttackedVillage;
     };
 
     /// <summary>
