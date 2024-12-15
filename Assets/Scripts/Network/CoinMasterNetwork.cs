@@ -21,7 +21,6 @@ public class CoinMasterNetwork
     static CoinMasterNetwork _instance = new CoinMasterNetwork();
     private CoinMasterNetwork() { }
 
-
     /// <summary>
     /// ユーザID用のセーブデータ
     /// </summary>
@@ -78,14 +77,51 @@ public class CoinMasterNetwork
     /// <summary>
     /// ユーザデータの保存通信
     /// </summary>
-    /// <returns>成否(今は0)</returns>
-    public static async UniTask<int> Save()
+    /// <returns>更新があったデータ</returns>
+    public static async UniTask<UpdateData> Save()
     {
         string uuid = await _instance.getUUID();
 
         //データ保存
-        await Network.WebRequest.PostRequest<UserData>(string.Format(BaseURI, uuid, "save"), _instance._userData);
-        return 0;
+        string result = await Network.WebRequest.PostRequest<UserData>(string.Format(BaseURI, uuid, "save"), _instance._userData);
+        UpdateData data = JsonUtility.FromJson<UpdateData>(result);
+        return data;
+    }
+
+    /// <summary>
+    /// 攻撃相手のリストを取得する
+    /// </summary>
+    /// <returns>リストデータ</returns>
+    public static async UniTask<ListData> GetList()
+    {
+        string uuid = await _instance.getUUID();
+
+        Debug.Log(string.Format(BaseURI, uuid, "list"));
+
+        //ログイン通信
+        string result = await Network.WebRequest.PostRequest<string>(string.Format(BaseURI, uuid, "list"), "{}");
+        ListData data = JsonUtility.FromJson<ListData>(result);
+        return data;
+    }
+
+    /// <summary>
+    /// 攻撃
+    /// </summary>
+    /// <returns>ログイン時のデータ</returns>
+    public static async UniTask<AttackData> Attack(string targetUserUUID, long betCoin)
+    {
+        string uuid = await _instance.getUUID();
+
+        Debug.Log(string.Format(BaseURI, uuid, "attack"));
+
+        var atk = new AttackSender();
+        atk.TargetUUID = targetUserUUID;
+        atk.BetCoin = betCoin;
+
+        //攻撃をする通信
+        string result = await Network.WebRequest.PostRequest<AttackSender>(string.Format(BaseURI, uuid, "attack"), atk);
+        AttackData data = JsonUtility.FromJson<AttackData>(result);
+        return data;
     }
 
     /// <summary>

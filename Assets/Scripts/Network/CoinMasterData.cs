@@ -13,6 +13,7 @@ namespace CoinMaster
         public string name;
         public long coin;
         public int facility;
+        public int isAttack;
         public DateTime lastAccess;
         public DateTime createdAt;
     };
@@ -25,5 +26,45 @@ namespace CoinMaster
     {
         public int status;
         public UserData user;
+    };
+
+    /// <summary>
+    /// セーブ時更新があった情報
+    /// </summary>
+    [Serializable]
+    public class UpdateData
+    {
+        public int status;
+        public long stolenCoin;
+    };
+
+    /// <summary>
+    /// 攻撃時のUUID
+    /// </summary>
+    [Serializable]
+    public class AttackSender
+    {
+        public string TargetUUID;
+        public long BetCoin;
+    };
+
+    /// <summary>
+    /// リストを取得する
+    /// </summary>
+    [Serializable]
+    public class ListData
+    {
+        public int status;
+        public UserData[] list;
+    };
+
+    /// <summary>
+    /// 奪った情報
+    /// </summary>
+    [Serializable]
+    public class AttackData
+    {
+        public int status;
+        public long stealCoin;
     };
 }
