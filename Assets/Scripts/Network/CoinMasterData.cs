@@ -13,7 +13,7 @@ namespace CoinMaster
         public string name;
         public long coin;
         public int facility;
-        public int isAttack;
+        public long stolenCoin;
         public DateTime lastAccess;
         public DateTime createdAt;
     };
